@@ -1,0 +1,113 @@
+/* styles.css */
+
+/* Body Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #FF512F, #DD2476);
+  }
+  
+  /* Header Styles */
+  .header {
+    background: #333; /* Header background color */
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-left h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .header-right nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header-right nav ul li {
+    display: inline;
+    margin-left: 20px;
+  }
+  
+  .header-right nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .header-right nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Login Form Styles */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 40px); /* Adjusted height to accommodate header */
+  }
+  
+  .login-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+  }
+  
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    width: 100%; /* Make sure the form elements take up full width */
+  }
+
+  .form-container {
+    width: 100%; /* Ensure the form container takes full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 50%; /* Adjust width as needed */
+    margin-top: 20px; /* Add some top margin */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
