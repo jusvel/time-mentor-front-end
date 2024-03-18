@@ -1,8 +1,11 @@
 import axiosClient from "../axiosClient";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Test() {
   const [tasks, setTasks] = useState([]);
+  const subjectRef = useRef("");
+  const titleRef = useRef("");
+
   useEffect(() => {
     axiosClient
       .get("/tasks", { withCredentials: true })
@@ -16,12 +19,13 @@ export default function Test() {
   }, []);
 
   const handleDeleteTask = async (taskId) => {
-      await axiosClient.delete("tasks/${taskId}");
+      await axiosClient.delete("tasks/${taskId}"), { withCredentials: true };
       console.log("Task deleted successfully.");
   };
   
-  const handleUpdateTask = () => {
-    
+  const handleUpdateTask = async (taskId) => {
+      await axiosClient.patch("tasks/${taskId}"), { withCredentials: true };
+      console.log("Task deleted successfully.");
   };
 
   console.log(tasks.map((task) => task.title));
@@ -31,8 +35,16 @@ export default function Test() {
       {tasks.map((task) => (
         
         <div key={task.id} style={{ display: "flex", flexDirection: "column" }}>
+        
         <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-        <button onClick={handleUpdateTask}>Update</button>
+
+        <form onSubmit={handleUpdateTask(task.id)}>
+        <input ref={subjectRef} type="text" />
+        <input ref={titleRef} type="text" />
+        <button>Update</button>
+        </form>
+
+        
           <h1>{task.title}</h1>
           <p>{task.subject}</p>
           <p>{task.difficulty}</p>
