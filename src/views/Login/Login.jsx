@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import axiosClient from "../axiosClient";
 import { useNavigate, Link } from "react-router-dom";
+import "./signup.css";
 
 export default function Login() {
   const emailRef = useRef("");
@@ -40,11 +41,11 @@ export default function Login() {
           <button type="submit">Login</button>
         </form>
       </div>
-      <div className="signup-text">
-        <p>
-          Don&apos;t have an account? <Link to={"/signup"}>Sign Up</Link>
-        </p>
+        <div className="signup-text">
+          <p>
+            Don&apos;t have an account? <Link to={"/signup"}>Sign Up</Link>
+          </p>
+        </div>
       </div>
-    </div>
   );
 }
