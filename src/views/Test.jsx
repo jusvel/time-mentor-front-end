@@ -7,7 +7,7 @@ export default function Test() {
     axiosClient
       .get("/tasks", { withCredentials: true })
       .then((response) => {
-        // console.log(response.data.data.tasks);
+        console.log(response.data.data.tasks);
         setTasks(response.data.data.tasks);
       })
       .catch((error) => {
@@ -15,11 +15,24 @@ export default function Test() {
       });
   }, []);
 
+  const handleDeleteTask = async (taskId) => {
+      await axiosClient.delete("tasks/${taskId}");
+      console.log("Task deleted successfully.");
+  };
+  
+  const handleUpdateTask = () => {
+    
+  };
+
   console.log(tasks.map((task) => task.title));
   return (
     <div>
+    
       {tasks.map((task) => (
+        
         <div key={task.id} style={{ display: "flex", flexDirection: "column" }}>
+        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+        <button onClick={handleUpdateTask}>Update</button>
           <h1>{task.title}</h1>
           <p>{task.subject}</p>
           <p>{task.difficulty}</p>
