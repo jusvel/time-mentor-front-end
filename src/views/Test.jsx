@@ -13,21 +13,22 @@ export default function Test() {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    fetchTasks();
+    getTasks();
   }, []);
 
-  const fetchTasks = () => {
+  const getTasks = () => {
     axiosClient
       .get("/tasks", { withCredentials: true })
       .then((response) => {
+        console.log(response.data.data.tasks);
         setTasks(response.data.data.tasks);
       })
       .catch((error) => {
-        console.error("Error fetching tasks:", error.message);
+        console.log("Error fetching tasks", error.message);
       });
   };
 
-  const handleInputChange = (e) => {
+const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -44,12 +45,23 @@ export default function Test() {
       .then((response) => {
         console.log("Task created successfully:", response.data);
         setShowForm(false);
-        fetchTasks(); // Fetch tasks again to update the list
+        getTasks(); // Fetch tasks again to update the list
       })
       .catch((error) => {
         console.error("Error creating task:", error.message);
       });
   };
+  const handleDeleteTask = (task) => {
+    console.log(task);
+    axiosClient
+      .delete(`tasks/${task.id}`, { withCredentials: true })
+      .then(() => {
+        getTasks();
+      });
+  };
+
+  const handleUpdateTask = () => {};
+
 
   return (
     <div>
@@ -96,6 +108,8 @@ export default function Test() {
       )}
       {tasks.map((task) => (
         <div key={task.id} style={{ display: "flex", flexDirection: "column" }}>
+          <button onClick={() => handleDeleteTask(task)}>Delete</button>
+          <button onClick={handleUpdateTask}>Update</button>
           <h1>{task.title}</h1>
           <p>{task.subject}</p>
           <p>{task.difficulty}</p>
