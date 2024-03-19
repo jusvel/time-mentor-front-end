@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 export default function Test() {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
+    getTasks();
+  }, []);
+
+  const getTasks = () => {
     axiosClient
       .get("/tasks", { withCredentials: true })
       .then((response) => {
@@ -11,28 +15,28 @@ export default function Test() {
         setTasks(response.data.data.tasks);
       })
       .catch((error) => {
-        console.error("Error fetching tasks:", error.message);
+        console.log("Error fetching tasks", error.message);
       });
-  }, []);
+  };
 
-  const handleDeleteTask = async (taskId) => {
-      await axiosClient.delete("tasks/${taskId}");
-      console.log("Task deleted successfully.");
+  const handleDeleteTask = (task) => {
+    console.log(task);
+    axiosClient
+      .delete(`tasks/${task.id}`, { withCredentials: true })
+      .then(() => {
+        getTasks();
+      });
   };
-  
-  const handleUpdateTask = () => {
-    
-  };
+
+  const handleUpdateTask = () => {};
 
   console.log(tasks.map((task) => task.title));
   return (
     <div>
-    
       {tasks.map((task) => (
-        
         <div key={task.id} style={{ display: "flex", flexDirection: "column" }}>
-        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-        <button onClick={handleUpdateTask}>Update</button>
+          <button onClick={() => handleDeleteTask(task)}>Delete</button>
+          <button onClick={handleUpdateTask}>Update</button>
           <h1>{task.title}</h1>
           <p>{task.subject}</p>
           <p>{task.difficulty}</p>
