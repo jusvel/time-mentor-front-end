@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import axiosClient from "../axiosClient";
+import axiosClient from "../../axiosClient";
+import "./Signup.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {

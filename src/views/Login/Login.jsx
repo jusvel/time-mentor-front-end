@@ -1,51 +1,57 @@
-import { useRef } from "react";
-import axiosClient from "../axiosClient";
-import { useNavigate, Link } from "react-router-dom";
-import "./signup.css";
+import React, { useRef } from 'react';
+import axiosClient from '../../axiosClient';
+import './Login.css'; // Make sure the path is correct for your project setup
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    axiosClient
-      .post(
-        "/users/login",
-        { email: emailRef.current.value, password: passwordRef.current.value },
+    try {
+      const response = await axiosClient.post(
+        '/users/login',
+        {
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        },
         { withCredentials: true }
-      )
-      .then((response) => {
-        console.log(response);
-        navigate("/test");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      );
+      console.log(response);
+      navigate('/app/test'); // Adjust the path as necessary
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div>
+    <>
+      <header className="header">
+        <div className="header-left">
+          <h1>TimeMentor</h1>
+        </div>
+      </header>
       <div className="login-container">
-        <form className="login-form" onSubmit={onSubmit}>
+        <div className="login-box">
           <h2>Login</h2>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input id="email" ref={emailRef} type="email" required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input id="password" ref={passwordRef} type="password" required />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
-        <div className="signup-text">
+          <form className="form-container" onSubmit={onSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" ref={emailRef} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" ref={passwordRef} required />
+            </div>
+            <button type="submit" className="form-button">Login</button>
+          </form>
           <p>
-            Don&apos;t have an account? <Link to={"/signup"}>Sign Up</Link>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
         </div>
       </div>
+    </>
   );
 }
