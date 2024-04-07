@@ -8,7 +8,7 @@ export default function Test() {
     subject: "",
     difficulty: "",
     estimatedDuration: "",
-    deadline: ""
+    deadline: "",
   });
   const [showForm, setShowForm] = useState(false);
 
@@ -28,20 +28,24 @@ export default function Test() {
       });
   };
 
-const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleCreateTask = () => {
     axiosClient
-      .post("/tasks", {
-        title: formData.title,
-        subject: formData.subject,
-        difficulty: formData.difficulty,
-        estimatedDuration: parseInt(formData.estimatedDuration),
-        deadline: new Date(formData.deadline).toISOString(),
-        user: "65f4269e9e8ca78b953c9fb6" // Replace with actual user ID
-      }, { withCredentials: true })
+      .post(
+        "/tasks",
+        {
+          title: formData.title,
+          subject: formData.subject,
+          difficulty: formData.difficulty,
+          estimatedDuration: parseInt(formData.estimatedDuration),
+          deadline: new Date(formData.deadline).toISOString(),
+          user: "65f4269e9e8ca78b953c9fb6", // Replace with actual user ID
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
         console.log("Task created successfully:", response.data);
         setShowForm(false);
@@ -62,10 +66,11 @@ const handleInputChange = (e) => {
 
   const handleUpdateTask = () => {};
 
-
   return (
     <div>
-      <button onClick={() => setShowForm(true)}>Create Task</button>
+      <button className="btn" onClick={() => setShowForm(true)}>
+        Create Task
+      </button>
       {showForm && (
         <div>
           <input
@@ -103,13 +108,19 @@ const handleInputChange = (e) => {
             onChange={handleInputChange}
             placeholder="Deadline"
           />
-          <button onClick={handleCreateTask}>Submit</button>
+          <button className="btn" onClick={handleCreateTask}>
+            Submit
+          </button>
         </div>
       )}
       {tasks.map((task) => (
         <div key={task.id} style={{ display: "flex", flexDirection: "column" }}>
-          <button onClick={() => handleDeleteTask(task)}>Delete</button>
-          <button onClick={handleUpdateTask}>Update</button>
+          <button className="btn" onClick={() => handleDeleteTask(task)}>
+            Delete
+          </button>
+          <button className="btn" onClick={handleUpdateTask}>
+            Update
+          </button>
           <h1>{task.title}</h1>
           <p>{task.subject}</p>
           <p>{task.difficulty}</p>

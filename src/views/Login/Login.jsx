@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import axiosClient from '../../axiosClient';
-import './Login.css'; // Make sure the path is correct for your project setup
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useRef } from "react";
+import axiosClient from "../../axiosClient";
+import "./Login.css"; // Make sure the path is correct for your project setup
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const emailRef = useRef(null);
@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await axiosClient.post(
-        '/users/login',
+        "/users/login",
         {
           email: emailRef.current.value,
           password: passwordRef.current.value,
@@ -20,7 +20,7 @@ export default function Login() {
         { withCredentials: true }
       );
       console.log(response);
-      navigate('/app/test'); // Adjust the path as necessary
+      navigate("/tasks"); // Adjust the path as necessary
     } catch (error) {
       console.error(error);
     }
@@ -45,7 +45,9 @@ export default function Login() {
               <label htmlFor="password">Password</label>
               <input type="password" id="password" ref={passwordRef} required />
             </div>
-            <button type="submit" className="form-button">Login</button>
+            <button type="submit" className="form-button btn">
+              Login
+            </button>
           </form>
           <p>
             Don't have an account? <Link to="/signup">Sign Up</Link>

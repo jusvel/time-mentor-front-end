@@ -4,8 +4,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #FF512F, #DD2476);
+  /* font-family: Arial, sans-serif; */
+  /* background: linear-gradient(to right, #ff512f, #dd2476); */
 }
 
 /* Header Styles */
@@ -95,7 +95,7 @@ input[type="password"] {
   border-radius: 5px;
 }
 
-button {
+.btn {
   width: 50%; /* Adjust width as needed */
   margin-top: 20px; /* Add some top margin */
   padding: 10px;
@@ -107,6 +107,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
   background-color: #0056b3;
 }
