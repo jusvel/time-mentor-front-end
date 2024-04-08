@@ -28,11 +28,6 @@ export default function Login() {
 
   return (
     <>
-      <header className="header">
-        <div className="header-left">
-          <h1>TimeMentor</h1>
-        </div>
-      </header>
       <div className="login-container">
         <div className="login-box">
           <h2>Login</h2>
