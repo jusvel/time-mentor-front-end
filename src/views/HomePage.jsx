@@ -17,9 +17,6 @@ export default function HomePage() {
 
   return (
     <>
-      <header className="homepage-header">
-        {/* Your header content here */}
-      </header>
       <div className="homepage-main-container">
         <div className="main-message-container">
           <h1>TimeMentor</h1>
