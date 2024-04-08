@@ -6,9 +6,10 @@ export default function ZenMode() {
   useEffect(() => {
     const navHeight = document.querySelector(".navbar").offsetHeight;
     setMainHeight(`calc(100vh - ${navHeight}px)`);
+
   }, []);
-  const [focusMode, setFocusMode] = useState(false);
-  const [workingHours, setWorkingHours] = useState(8);
+  const [focusMode, setFocusMode] = useState(true);
+  const [workingHours, setWorkingHours] = useState(2);
   const [breakDuration, setBreakDuration] = useState(5);
   const [breakEnabled, setBreakEnabled] = useState(false);
   const [remainingBreakTime, setRemainingBreakTime] = useState(breakDuration * 60); // in seconds
@@ -44,13 +45,6 @@ export default function ZenMode() {
     return () => clearInterval(timer);
   }, [breakEnabled, remainingBreakTime]);
 
-  const toggleFocusMode = () => {
-    setFocusMode(!focusMode);
-    setFocusEnabled(false); // Reset focus mode when toggling
-    setFocusTimeBeforeBreak(null); // Reset stored focus time before break
-    setRemainingFocusTime(workingHours * 60 * 60); // Reset focus time
-  };
-
   const handleWorkingHoursChange = (e) => {
     setWorkingHours(parseInt(e.target.value));
     setRemainingFocusTime(parseInt(e.target.value) * 60 * 60); // Reset focus time when working hours change
@@ -78,11 +72,7 @@ export default function ZenMode() {
 
   return (
       <div className="zen-manager">
-        <h1>Study Management</h1>
-        <label>
-          <input type="checkbox" checked={focusMode} onChange={toggleFocusMode} />
-          Enable Focus Mode
-        </label>
+        <h1 className="title">Zen Mode configuration</h1>
         {focusMode && (
             <div className="settings">
               <div className="setting">
@@ -100,18 +90,19 @@ export default function ZenMode() {
               <div className="setting">
                 {focusEnabled ? (
                     <>
-                      <p>Focus Enabled</p>
-                      <p>Remaining Focus Time: {formatTime(remainingFocusTime)}</p>
+                      <p className="enabled">Focus Enabled</p>
+                      <p className="time">{formatTime(remainingFocusTime)}</p>
                     </>
                 ) : (
+
                     <button onClick={startFocus}>Start Focus</button>
                 )}
               </div>
               <div className="setting">
                 {breakEnabled ? (
                     <>
-                      <p>Break Enabled</p>
-                      <p>Remaining Break Time: {formatTime(remainingBreakTime)}</p>
+                      <p className="enabled">Break Enabled</p>
+                      <p className="time">{formatTime(remainingBreakTime)}</p>
                     </>
                 ) : (
                     <button onClick={startBreak}>Start Break</button>
