@@ -1,109 +1,106 @@
-body {
-  margin: 0;
-  padding: 0;
-  /* font-family: Arial, sans-serif; */
-  /* background: linear-gradient(to right, #ff512f, #dd2476); */
+/* HomePage.css */
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
 
-.header {
-  background: #333; /* Header background color */
+/* Header styles, updated to match the provided JSX structure */
+.homepage-header {
+  width: 100%;
+  padding: 10px 5%;
+  background-color: #333;
   color: #fff;
-  padding: 10px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.header-left h1 {
-  margin: 0;
-  font-size: 30px;
-}
-
-.main-container {
+/* Adjustments for main container */
+.homepage-main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: flex-start; /* Aligns content to the top, just after the header */
+  height: calc(100vh - 60px); /* Adjusted to account for header */
+  background-color: #f7f7f7;
+  padding-top: 5vh;
+  width: 100%;
+}
+
+/* Main message container styles for the inspiring text */
+.main-message-container {
   text-align: center;
-  padding: 0 20px;
+  max-width: 800px;
+  margin-top: 5vh; /* Adjusts the position to be more upwards */
 }
 
-.hero-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.main-message-container h1 {
+  font-size: 3.5rem;
+  color: #2b6cb0; /* TimeMentor title color */
+  margin-bottom: 0.25em;
 }
 
-.hero-container h2 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  color: #fff;
+.main-message-container .tagline {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 1em;
+  font-weight: 300;
 }
 
-.hero-container p {
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 40px;
+.main-message-container h2 {
+  font-size: 1.25rem;
+  color: #555;
+  font-weight: normal;
+  margin-bottom: 2rem;
 }
 
-.hero-container button {
-  width: 200px;
-  padding: 10px;
+/* Button styles */
+.btn {
+  background-color: #3182ce;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #333;
-  font-size: 16px;
+  padding: 15px 30px; /* Existing padding */
+  font-size: 1rem;
   cursor: pointer;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  min-width: 200px; /* Minimum width to make buttons appear wider */
+}
+.btn:hover {
+  background-color: #63b3ed;
 }
 
-.hero-container button:hover {
-  background-color: #ddd;
+#login-button {
+  background-color: #4a5568;
+  min-width: 200px; /* Ensuring login button also has the same minimum width */
 }
 
-.hero-container button a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
+#login-button:hover {
+  background-color: #a0aec0;
 }
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .homepage-main-container {
+    padding-top: 15vh;
+  }
 
-.welcome-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 40px;
-}
+  .main-message-container h1 {
+    font-size: 2.5rem;
+  }
 
-.welcome-message p {
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 20px;
-}
+  .main-message-container .tagline,
+  .main-message-container h2 {
+    font-size: 1.25rem;
+  }
 
-.welcome-message button {
-  width: 150px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #333;
-  font-size: 16px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.welcome-message button:hover {
-  background-color: #ddd;
-}
-
-.welcome-message button a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    min-width: 150px;
+  }
 }
