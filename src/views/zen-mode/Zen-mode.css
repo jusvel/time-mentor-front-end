@@ -1,0 +1,35 @@
+.zen-manager {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+}
+
+.settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.setting {
+    list-style: none;
+    /* border: 1px solid #333; */
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
