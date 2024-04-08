@@ -3,8 +3,9 @@ import Login from "./views/login/Login.jsx";
 import NotFound from "./views/NotFound.jsx";
 import Signup from "./views/signup/Signup.jsx";
 import DefaultLayout from "./components/DefaultLayout.jsx";
-import GuestLayout from "./components/GuestLayout.jsx";
-import Test from "./views/Test.jsx";
+import ZenMode from "./views/zen-mode/Zen-mode.jsx";
+//import GuestLayout from "./components/GuestLayout.jsx";
+//import Test from "./views/Test.jsx";
 import HomePage from "./views/HomePage.jsx"; // Import the HomePage component
 import Tasks from "./views/tasks/Tasks.jsx";
 
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "zen-mode",
-        element: <div>Zen Mode</div>,
+        element: <ZenMode />,
       },
       // ... more authenticated routes can be added here
     ],
