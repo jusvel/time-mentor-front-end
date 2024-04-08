@@ -8,31 +8,37 @@ export default function HomePage() {
 
   // Event handlers for buttons
   const handleSignupClick = () => {
-    navigate("/signup"); // Navigate to your signup route
+    navigate("/signup"); // Change to your signup route
   };
 
   const handleLoginClick = () => {
-    navigate("/login"); // Navigate to your login route
+    navigate("/login"); // Change to your login route
   };
 
   return (
     <>
-      <div className="homepage-main-container">
-        <div className="main-message-container">
+      <header className="header">
+        <div className="header-left">
           <h1>TimeMentor</h1>
-          <p className="tagline">Master Your Time, Ace Your Studies.</p>
-          <h2>Plan, track, and succeed in your academic journey with ease.</h2>
         </div>
+      </header>
+      <div className="main-container">
         <div className="hero-container">
-          <button className="btn" id="signup-button" onClick={handleSignupClick}>
+          <h2>Track your time and increase your productivity</h2>
+          <p>Sign up for TimeMentor and start tracking your time today!</p>
+          <button
+            className="btn"
+            id="signup-button"
+            onClick={handleSignupClick}
+          >
             Sign Up
-          </button>
-          <button className="btn" id="login-button" onClick={handleLoginClick}>
-            Log In
           </button>
         </div>
         <div className="welcome-message">
-          {/* Any additional messages or content can go here */}
+          <p>Already have an account?</p>
+          <button className="btn" id="login-button" onClick={handleLoginClick}>
+            Log In
+          </button>
         </div>
       </div>
     </>
