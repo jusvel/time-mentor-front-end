@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import "./Zen-mode.css";
-
+import React from 'react';
 export default function ZenMode() {
-  const [mainHeight, setMainHeight] = useState("100vh");
+  const [, setMainHeight] = useState("100vh");
   useEffect(() => {
-    const navHeight = document.querySelector(".navbar").offsetHeight;
-    setMainHeight(`calc(100vh - ${navHeight}px)`);
-
+    const navbar = document.querySelector(".navbar");
+    if (navbar) {
+      const navHeight = navbar.offsetHeight;
+      setMainHeight(`calc(100vh - ${navHeight}px)`);
+    }
   }, []);
-  const [focusMode, setFocusMode] = useState(true);
+  const [focusMode] = useState(true);
   const [workingHours, setWorkingHours] = useState(2);
   const [breakDuration, setBreakDuration] = useState(5);
   const [breakEnabled, setBreakEnabled] = useState(false);
@@ -71,7 +73,7 @@ export default function ZenMode() {
   };
 
   return (
-      <div className="zen-manager">
+      <div data-testid="zen1" className="zen-manager">
         <h1 className="title">Zen Mode configuration</h1>
         {focusMode && (
             <div className="settings">
@@ -114,4 +116,5 @@ export default function ZenMode() {
   );
 
 }
+
 
