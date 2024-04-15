@@ -10,8 +10,13 @@ export default function ZenMode() {
       setMainHeight(`calc(100vh - ${navHeight}px)`);
     }
   }, []);
-  const [focusMode] = useState(true);
-  const [workingHours, setWorkingHours] = useState(2);
+
+  // State for input values
+  const [workingHoursInputValue, setWorkingHoursInputValue] = useState(2);
+  const [workingMinutesInputValue, setWorkingMinutesInputValue] = useState(0);
+
+  const [workingHours] = useState(2);
+
   const [breakDuration, setBreakDuration] = useState(5);
   const [breakEnabled, setBreakEnabled] = useState(false);
   const [remainingBreakTime, setRemainingBreakTime] = useState(breakDuration * 60); // in seconds
@@ -36,25 +41,32 @@ export default function ZenMode() {
         setRemainingBreakTime((prevTime) => prevTime - 1);
       }, 1000);
       if (focusEnabled) {
-        setFocusTimeBeforeBreak(remainingFocusTime); // Store remaining focus time before the break starts
-        setFocusEnabled(false); // Pause focus time when break starts
+        setFocusTimeBeforeBreak(remainingFocusTime);
+        setFocusEnabled(false);
       }
     } else if (!breakEnabled && focusTimeBeforeBreak !== null) {
-      setRemainingFocusTime(focusTimeBeforeBreak); // Restore remaining focus time when break ends
-      setFocusEnabled(true); // Resume focus time when break ends
-      setFocusTimeBeforeBreak(null); // Reset stored focus time before break
+      setRemainingFocusTime(focusTimeBeforeBreak);
+      setFocusEnabled(true);
+      setFocusTimeBeforeBreak(null);
     }
     return () => clearInterval(timer);
   }, [breakEnabled, remainingBreakTime]);
 
   const handleWorkingHoursChange = (e) => {
-    setWorkingHours(parseInt(e.target.value));
-    setRemainingFocusTime(parseInt(e.target.value) * 60 * 60); // Reset focus time when working hours change
+    const hours = parseInt(e.target.value);
+    setWorkingHoursInputValue(hours);
+    setRemainingFocusTime(hours * 60 * 60 + workingMinutesInputValue * 60);
+  };
+
+  const handleWorkingMinutesChange = (e) => {
+    const minutes = parseInt(e.target.value);
+    setWorkingMinutesInputValue(minutes);
+    setRemainingFocusTime(workingHoursInputValue * 60 * 60 + minutes * 60);
   };
 
   const handleBreakDurationChange = (e) => {
     setBreakDuration(parseInt(e.target.value));
-    setRemainingBreakTime(parseInt(e.target.value) * 60); // Reset break time when break duration changes
+    setRemainingBreakTime(parseInt(e.target.value) * 60);
   };
 
   const startBreak = () => {
@@ -63,6 +75,8 @@ export default function ZenMode() {
 
   const startFocus = () => {
     setFocusEnabled(true);
+    setBreakEnabled(false);
+    setRemainingBreakTime(breakDuration * 60);
   };
 
   const formatTime = (timeInSeconds) => {
@@ -75,28 +89,45 @@ export default function ZenMode() {
   return (
       <div data-testid="zen1" className="zen-manager">
         <h1 className="title">Zen Mode configuration</h1>
-        {focusMode && (
+
             <div className="settings">
               <div className="setting">
                 <label>
                   Working Hours:
-                  <input type="number" value={workingHours} onChange={handleWorkingHoursChange} />
+                  <input
+                      data-testid="working-hours-input"
+                      type="number"
+                      value={workingHoursInputValue}
+                      onChange={handleWorkingHoursChange}
+                  />
+                </label>
+                <label>
+                  Working Minutes:
+                  <input
+                      data-testid="working-minutes-input"
+                      type="number"
+                      value={workingMinutesInputValue}
+                      onChange={handleWorkingMinutesChange}
+                  />
                 </label>
               </div>
               <div className="setting">
                 <label>
                   Break Duration (minutes):
-                  <input type="number" value={breakDuration} onChange={handleBreakDurationChange} />
+                  <input
+                      type="number"
+                      value={breakDuration}
+                      onChange={handleBreakDurationChange}
+                  />
                 </label>
               </div>
               <div className="setting">
                 {focusEnabled ? (
                     <>
                       <p className="enabled">Focus Enabled</p>
-                      <p className="time">{formatTime(remainingFocusTime)}</p>
+                      <p data-testid="working-time-output" className="time">{formatTime(remainingFocusTime)}</p>
                     </>
                 ) : (
-
                     <button onClick={startFocus}>Start Focus</button>
                 )}
               </div>
@@ -111,10 +142,8 @@ export default function ZenMode() {
                 )}
               </div>
             </div>
-        )}
+
       </div>
   );
-
 }
-
 
