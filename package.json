@@ -52,5 +52,8 @@
   "description": "Front end for time mentor",
   "main": "vite.config.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "tests"
+  }
 }
