@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
 import {
 	Button,
 	Modal,
@@ -147,12 +148,7 @@ export default function Tasks() {
 					) : (
 						<ul className='task-list'>
 							{tasks.map((task) => (
-								<li
-									key={task._id}
-									className='task-list-item'
-									onClick={() => handleOpen(task, false)}
-									style={{ backgroundColor: task.deadline < new Date().toISOString() ? '#FF6347' : 'white' }}
-								>
+								<li key={task._id} className='task-list-item' onClick={() => handleOpen(task, false)}>
 									<div className='task'>
 										<div className='task-top-bar'>
 											<p>{task.title}</p>

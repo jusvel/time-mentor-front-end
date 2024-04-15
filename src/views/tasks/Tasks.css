@@ -171,6 +171,24 @@ button:hover {
   font-weight: 600;
 }
 
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px; /* Spacing below the search form */
+}
+
+.search-input,
+.difficulty-select {
+  flex-grow: 1;
+}
+
+.search-button {
+  background-color: #5c6bc0; /* Adjust this color to match your design */
+  color: white;
+  padding: 6px 16px; /* Sizing for the button */
+}
+
 .tasks-left .react-calendar__tile--now {
   background-color: #666; /* Choose your preferred color for today's date */
 }
@@ -178,4 +196,15 @@ button:hover {
 .tasks-left .react-calendar__navigation button:focus {
   background-color: #4f4f4f; /* Same as your hover state */
   border-radius: 15px; /* Same as your hover state */
+}
+
+.tasks-top-menu form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style adjustments for the search input */
+.tasks-top-menu .MuiTextField-root {
+  margin-right: 8px;
 }
