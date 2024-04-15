@@ -9,6 +9,18 @@
     color: #333;
     font-family: 'Roboto', sans-serif;
 }
+.time {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.enabled {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
 
 .title {
     font-size: 2.5rem;
