@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+
 import {
   Button,
   Modal,
@@ -32,11 +33,13 @@ const modalStyle = {
 export default function Tasks() {
   const [mainHeight, setMainHeight] = useState("100vh");
   const [tasks, setTasks] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [filterDifficulty, setFilterDifficulty] = useState('');
+  const [open, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
   const [isNew, setIsNew] = useState(false);
   const [selectedDateTasks, setSelectedDateTasks] = useState([]);
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const handleOpen = function (task, create) {
     if (create) {
       setIsNew(true);
@@ -57,6 +60,33 @@ export default function Tasks() {
     setMainHeight(`calc(100vh - ${navHeight}px)`);
     getTasks();
   }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  
+    const handleSearchSubmit = (event) => {
+      event.preventDefault();
+    
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('query', searchTerm);
+      if (filterDifficulty) params.append('difficulty', filterDifficulty);
+    
+      axiosClient
+        .get(`/tasks/search?${params.toString()}`, { withCredentials: true })
+        .then((response) => {
+          setTasks(response.data.data.tasks); // Assuming this is the correct path to your data
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 404) {
+            // If no tasks are found, set the tasks state to an empty array
+            setTasks([]);
+          } else {
+            // For all other errors, log them or show a user-friendly message
+            console.error("Error fetching tasks", error.response || error.message);
+          }
+        });
+    };
 
   const getTasks = () => {
     axiosClient
@@ -144,9 +174,39 @@ export default function Tasks() {
         <div className="tasks-right">
           <div className="tasks-top-menu">
             <p>Tasks</p>
+            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <TextField
+                id="search"
+                label="Search by title or subject"
+                type="search"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                variant="outlined"
+                size="small"
+                style={{ flex: 1 }}
+              />
+              <TextField
+                id="difficulty"
+                select
+                label="Difficulty"
+                value={filterDifficulty}
+                onChange={(e) => setFilterDifficulty(e.target.value)}
+                variant="outlined"
+                size="small"
+                style={{ minWidth: '120px' }}
+              >
+                <MenuItem value="">All</MenuItem>
+                <MenuItem value="easy">Easy</MenuItem>
+                <MenuItem value="medium">Medium</MenuItem>
+                <MenuItem value="hard">Hard</MenuItem>
+              </TextField>
+              <Button type="submit" variant="contained" color="primary" style={{ padding: '6px 16px' }}>
+                Search
+              </Button>
+            </form>
             <Button
               variant="contained"
-              sx={{ backgroundColor: "green" }}
+              sx={{ backgroundColor: "green", marginLeft: 2 }}
               onClick={() => handleOpen({}, true)}
             >
               Add new task
@@ -208,7 +268,6 @@ export default function Tasks() {
                   getTasks();
                 });
             }
-
             handleClose();
           },
         }}
