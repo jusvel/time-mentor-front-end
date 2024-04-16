@@ -7,6 +7,8 @@ import GuestLayout from "./components/GuestLayout.jsx";
 import Test from "./views/Test.jsx";
 import HomePage from "./views/HomePage.jsx"; // Import the HomePage component
 import Tasks from "./views/tasks/Tasks.jsx";
+import ZenMode from "./views/zen-mode/Zen-mode.jsx";
+import Results from "./views/results/Results.jsx";
 
 // A wrapper component to handle layout composition for authenticated routes
 const AuthenticatedLayout = () => (
@@ -33,11 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "results",
-        element: <div>Results</div>,
+        element: <Results />,
       },
       {
         path: "zen-mode",
-        element: <div>Zen Mode</div>,
+        element: <ZenMode />,
       },
       // ... more authenticated routes can be added here
     ],
