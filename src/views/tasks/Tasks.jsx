@@ -68,6 +68,38 @@ export default function Tasks() {
 	const handleSearchSubmit = (event) => {
 		event.preventDefault();
 
+
+  const calculateWeight = (task) => {
+    const now = new Date();
+    const deadlineTime = new Date(task.deadline).getTime();
+    const timeLeft = deadlineTime - now.getTime();
+    const difficultyWeight = { easy: 1, medium: 2, hard: 3 }[task.difficulty];
+    // Customize this calculation as per your requirement
+    return (task.estimatedDuration + difficultyWeight) * Math.max(timeLeft, 1);
+  };
+  
+  const sortTasks = (tasks) => {
+    return tasks.sort((a, b) => calculateWeight(b) - calculateWeight(a));
+  };
+  useEffect(() => {
+    const navHeight = document.querySelector(".navbar").offsetHeight;
+    setMainHeight(`calc(100vh - ${navHeight}px)`);
+    getTasks();
+  }, []);
+
+  const getTasks = () => {
+    axiosClient
+      .get("/tasks", { withCredentials: true })
+      .then((response) => {
+        const sortedTasks = sortTasks(response.data.data.tasks);
+        setTasks(sortedTasks);
+        console.log(response.data.data.tasks);
+      })
+      .catch((error) => {
+        console.log("Error fetching tasks", error.message);
+      });
+  };
+
 		const params = new URLSearchParams();
 		if (searchTerm) params.append('query', searchTerm);
 		if (filterDifficulty) params.append('difficulty', filterDifficulty);
@@ -88,17 +120,14 @@ export default function Tasks() {
 			});
 	};
 
-	const getTasks = () => {
-		axiosClient
-			.get('/tasks', { withCredentials: true })
-			.then((response) => {
-				console.log(response.data.data.tasks);
-				setTasks(response.data.data.tasks);
-			})
-			.catch((error) => {
-				console.log('Error fetching tasks', error.message);
-			});
-	};
+
+
+  // Handle click on a date
+  const handleDateClick = (date) => {
+    const tasksForDate = sortTasks(filterTasksForDate(date));
+    setSelectedDateTasks(tasksForDate);
+    setCalendarModalOpen(true);
+  };
 
 	const filterTasksForDate = (date) => {
 		const formattedDate = moment(date).format('YYYY-MM-DD');
@@ -106,12 +135,7 @@ export default function Tasks() {
 		return filteredTasks;
 	};
 
-	// Handle click on a date
-	const handleDateClick = (date) => {
-		const tasksForDate = filterTasksForDate(date);
-		setSelectedDateTasks(tasksForDate);
-		setCalendarModalOpen(true);
-	};
+
 
 	// Customize the tileContent of the Calendar component
 	const customTileContent = ({ date, view }) => {
