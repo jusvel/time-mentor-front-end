@@ -54,6 +54,11 @@ export default function Tasks() {
 		setOpen(false);
 		setCalendarModalOpen(false);
 	};
+	useEffect(() => {
+    const navHeight = document.querySelector(".navbar").offsetHeight;
+    setMainHeight(`calc(100vh - ${navHeight}px)`);
+    getTasks();
+  }, []);
 const getTasks = () => {
     axiosClient
       .get("/tasks", { withCredentials: true })
@@ -88,11 +93,6 @@ const calculateWeight = (task) => {
   };
 	const handleSearchSubmit = (event) => {
 		event.preventDefault();
-  useEffect(() => {
-    const navHeight = document.querySelector(".navbar").offsetHeight;
-    setMainHeight(`calc(100vh - ${navHeight}px)`);
-    getTasks();
-  }, []);
 		const params = new URLSearchParams();
 		if (searchTerm) params.append('query', searchTerm);
 		if (filterDifficulty) params.append('difficulty', filterDifficulty);
