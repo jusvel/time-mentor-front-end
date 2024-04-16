@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Zen-mode.css";
-import React from 'react';
+import React from "react";
 export default function ZenMode() {
   const [, setMainHeight] = useState("100vh");
   useEffect(() => {
@@ -19,9 +19,13 @@ export default function ZenMode() {
 
   const [breakDuration, setBreakDuration] = useState(5);
   const [breakEnabled, setBreakEnabled] = useState(false);
-  const [remainingBreakTime, setRemainingBreakTime] = useState(breakDuration * 60); // in seconds
+  const [remainingBreakTime, setRemainingBreakTime] = useState(
+    breakDuration * 60
+  ); // in seconds
   const [focusEnabled, setFocusEnabled] = useState(false);
-  const [remainingFocusTime, setRemainingFocusTime] = useState(workingHours * 60 * 60); // in seconds
+  const [remainingFocusTime, setRemainingFocusTime] = useState(
+    workingHours * 60 * 60
+  ); // in seconds
   const [focusTimeBeforeBreak, setFocusTimeBeforeBreak] = useState(null);
 
   useEffect(() => {
@@ -83,67 +87,69 @@ export default function ZenMode() {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = timeInSeconds % 60;
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   return (
-      <div data-testid="zen1" className="zen-manager">
-        <h1 className="title">Zen Mode configuration</h1>
+    <div data-testid="zen1" className="zen-manager">
+      <h1 className="title">Zen Mode configuration</h1>
 
-            <div className="settings">
-              <div className="setting">
-                <label>
-                  Working Hours:
-                  <input
-                      data-testid="working-hours-input"
-                      type="number"
-                      value={workingHoursInputValue}
-                      onChange={handleWorkingHoursChange}
-                  />
-                </label>
-                <label>
-                  Working Minutes:
-                  <input
-                      data-testid="working-minutes-input"
-                      type="number"
-                      value={workingMinutesInputValue}
-                      onChange={handleWorkingMinutesChange}
-                  />
-                </label>
-              </div>
-              <div className="setting">
-                <label>
-                  Break Duration (minutes):
-                  <input
-                      type="number"
-                      value={breakDuration}
-                      onChange={handleBreakDurationChange}
-                  />
-                </label>
-              </div>
-              <div className="setting">
-                {focusEnabled ? (
-                    <>
-                      <p className="enabled">Focus Enabled</p>
-                      <p data-testid="working-time-output" className="time">{formatTime(remainingFocusTime)}</p>
-                    </>
-                ) : (
-                    <button onClick={startFocus}>Start Focus</button>
-                )}
-              </div>
-              <div className="setting">
-                {breakEnabled ? (
-                    <>
-                      <p className="enabled">Break Enabled</p>
-                      <p className="time">{formatTime(remainingBreakTime)}</p>
-                    </>
-                ) : (
-                    <button onClick={startBreak}>Start Break</button>
-                )}
-              </div>
-            </div>
-
+      <div className="settings">
+        <div className="setting">
+          <label>
+            Working Hours:
+            <input
+              data-testid="working-hours-input"
+              type="number"
+              value={workingHoursInputValue}
+              onChange={handleWorkingHoursChange}
+            />
+          </label>
+          <label>
+            Working Minutes:
+            <input
+              data-testid="working-minutes-input"
+              type="number"
+              value={workingMinutesInputValue}
+              onChange={handleWorkingMinutesChange}
+            />
+          </label>
+        </div>
+        <div className="setting">
+          <label>
+            Break Duration (minutes):
+            <input
+              type="number"
+              value={breakDuration}
+              onChange={handleBreakDurationChange}
+            />
+          </label>
+        </div>
+        <div className="setting">
+          {focusEnabled ? (
+            <>
+              <p className="enabled">Focus Enabled</p>
+              <p data-testid="working-time-output" className="time">
+                {formatTime(remainingFocusTime)}
+              </p>
+            </>
+          ) : (
+            <button onClick={startFocus}>Start Focus</button>
+          )}
+        </div>
+        <div className="setting">
+          {breakEnabled ? (
+            <>
+              <p className="enabled">Break Enabled</p>
+              <p className="time">{formatTime(remainingBreakTime)}</p>
+            </>
+          ) : (
+            <button onClick={startBreak}>Start Break</button>
+          )}
+        </div>
       </div>
+    </div>
   );
 }
-
