@@ -1,92 +1,208 @@
-.tasks-main {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+/* Combined Tasks.css */
 
-  background-color: #fff;
-  display: flex;
-  flex-direction: row;
+.tasks-main {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
 }
 
 .tasks-left {
-  width: 50%;
-  height: 100%;
-  background-color: #333;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 50%;
+	height: 100%;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	box-sizing: border-box;
 }
 
 .tasks-left .calendar {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+	width: 100%;
+	height: auto;
+	display: block;
+	background-color: #3d3d3d;
+	color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 }
 
 .tasks-right {
-  width: 50%;
-  height: 100%;
+	width: 50%;
+	height: 100%;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
 }
 
-.tasks-top-menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-  height: 20px;
-  align-items: center;
-}
-.tasks-top-menu p {
-  font-size: 30px;
-  font-weight: 600;
+/* ... other styles ... */
+
+/* Calendar Navigation */
+.tasks-left .react-calendar__navigation button {
+	color: #fff;
+	background: transparent;
+	font-size: 1.2em;
+	padding: 0.5em;
+	border: none;
+	transition: background-color 0.3s, border-radius 0.3s;
 }
 
+.tasks-left .react-calendar__navigation button:hover {
+	background-color: #4f4f4f;
+	border-radius: 15px; /* Rounded rectangle shape */
+}
+
+/* ... remaining styles ... */
+
+/* Add a modern feel to the buttons with a transition */
+button {
+	transition: all 0.3s ease;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ... additional styles ... */
+
+/* Adjust hover states for interactive elements */
+.tasks-left .react-calendar__tile:hover,
+.tasks-left .react-calendar__navigation button:hover {
+	background-color: #575757;
+	color: #fff;
+	border-radius: 15px; /* Rounded corners for day tiles */
+}
+
+/* Style for non-current month days */
+.tasks-left .react-calendar__month-view__days__day--neighboringMonth {
+	background-color: transparent;
+	color: #bbb;
+	pointer-events: none;
+}
+
+/* Ensure the day numbers and task indicators are vertically aligned in the center */
+.tasks-left .react-calendar__tile {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 80px;
+	padding: 0.5em;
+}
+
+/* Style for the task indicators */
+.tasks-left .react-calendar__tile--hasActive::after {
+	content: '';
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 5px;
+	height: 5px;
+	background: #fff;
+	border-radius: 50%;
+}
+
+/* Task List Styles */
 .task-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  height: 80%;
-  overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	list-style: none;
+	padding: 0 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	overflow: auto;
+	height: calc(100% - 40px); /* Subtract the height of the top menu */
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 .task-list::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .task-list-item {
-  list-style: none;
-  /* border: 1px solid #333; */
-  padding: 10px 20px;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	list-style: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	background-color: #fff;
+	border-radius: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	transition: background-color 0.3s;
 }
 
 .task-list-item:hover {
-  background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .task-top-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 20px;
-  font-weight: 600;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 .task-bottom-bar {
-  font-size: 14px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 14px;
+}
+
+/* The task creation and top menu styles */
+.tasks-top-menu {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 20px;
+	align-items: center;
+}
+
+.tasks-top-menu p {
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.search-form {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px; /* Spacing below the search form */
+}
+
+.search-input,
+.difficulty-select {
+	flex-grow: 1;
+}
+
+.search-button {
+	background-color: #5c6bc0; /* Adjust this color to match your design */
+	color: white;
+	padding: 6px 16px; /* Sizing for the button */
+}
+
+.tasks-left .react-calendar__tile--now {
+	background-color: #666; /* Choose your preferred color for today's date */
+}
+
+.tasks-left .react-calendar__navigation button:focus {
+	background-color: #4f4f4f; /* Same as your hover state */
+	border-radius: 15px; /* Same as your hover state */
+}
+
+.tasks-top-menu form {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/* Style adjustments for the search input */
+.tasks-top-menu .MuiTextField-root {
+	margin-right: 8px;
 }
