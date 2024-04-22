@@ -31,8 +31,5 @@ jobs:
       - name: Build project
         run: npm run build --if-present
 
-      - name: Run project
-        run: npm run dev
-
       - name: Run tests
         run: npm test
